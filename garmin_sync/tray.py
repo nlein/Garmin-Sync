@@ -22,7 +22,7 @@ from typing import Optional
 import pystray
 from pystray import Icon, Menu, MenuItem
 
-from .auth import get_client, interactive_login
+from .auth import get_client
 from .config import Config
 from .icons import icon_error, icon_idle, icon_ok, icon_syncing
 from .state import SyncState
@@ -287,11 +287,9 @@ class TrayApp:
                 self.config.export_dir = Path(data["export"])
                 self.config.upload_dir = Path(data["upload"])
                 log.info("Ordner geändert: Export=%s Upload=%s", data["export"], data["upload"])
-                ctypes.windll.user32.MessageBoxW(
-                    0,
-                    f"Export: {data['export']}\nUpload: {data['upload']}\n\nWatchdog-Pfad wird nach Neustart der Tray-App aktualisiert.",
+                icon.notify(
+                    f"Export: {data['export']}\nUpload: {data['upload']}\n\nWatchdog-Pfad wird nach Neustart aktualisiert.",
                     "Garmin Sync — Ordner gespeichert",
-                    0x40,
                 )
             except Exception as exc:
                 log.warning("Ordner-Dialog Fehler: %s", exc)
@@ -306,8 +304,7 @@ class TrayApp:
         if log_path.exists():
             subprocess.Popen(["notepad", str(log_path)])
         else:
-            # Einfaches Windows-Infobox ohne tkinter
-            ctypes.windll.user32.MessageBoxW(0, "Noch keine Log-Datei vorhanden.", "Garmin Sync", 0x40)
+            icon.notify("Noch keine Log-Datei vorhanden.", "Garmin Sync")
 
     def _on_quit(self, icon, item):
         self._stop.set()
