@@ -21,11 +21,12 @@ sync_state.json
 .garminconnect/
 token/
 
-# IDE
+# IDE / Tools
 .vscode/
 .idea/
 *.suo
 *.user
+.claude/
 
 # Privat — Review-Dokumente, persönliche Anweisungen
 _privat/
