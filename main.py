@@ -108,7 +108,8 @@ else:
         if chosen_upload:
             config.upload_dir = Path(chosen_upload)
 
-        config.save()  # Schreibt settings.json → first_run bei nächstem Start false
+        # Markiert als vom Nutzer konfiguriert — verhindert erneutes Erscheinen des Dialogs
+        config.set("paths_configured", True)
         root.destroy()
 
     state = SyncState(config.export_dir / "sync_state.json")

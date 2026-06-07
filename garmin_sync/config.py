@@ -19,8 +19,20 @@ _DEFAULTS = {
 class Config:
     def __init__(self):
         self._data = {**_DEFAULTS}
-        self._first_run = not SETTINGS_FILE.exists()
         self._load()
+        # Dialog nur anzeigen wenn:
+        #   a) keine settings.json vorhanden, ODER
+        #   b) Pfade wurden nie explizit vom Nutzer bestätigt UND sind noch factory-Default
+        # So bleibt eine vorhandene settings.json (auch ohne paths_configured-Flag) respektiert
+        # sobald der Nutzer eigene Pfade gewählt hat.
+        self._first_run = (
+            not SETTINGS_FILE.exists()
+            or (
+                not self._data.get("paths_configured", False)
+                and self._data.get("export_dir") == _DEFAULTS["export_dir"]
+                and self._data.get("upload_dir") == _DEFAULTS["upload_dir"]
+            )
+        )
 
     def _load(self):
         if SETTINGS_FILE.exists():
