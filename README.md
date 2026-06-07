@@ -1,6 +1,6 @@
 # garmin-sync
 
-Lokales Windows-Tool, das täglich Trainings- und Gesundheitsdaten aus **Garmin Connect** exportiert und von Claude erstellte Workouts dorthin hochlädt.
+Lokales Windows-Tool, das täglich Trainings- und Gesundheitsdaten aus **Garmin Connect** exportiert und selbst erstellte Workouts dorthin hochlädt — inklusive Einplanung im Garmin-Kalender.
 
 Läuft als **System-Tray-App** im Hintergrund — grünes Icon = alles OK, rotes Icon = Fehler aufgetreten.
 

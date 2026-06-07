@@ -256,28 +256,35 @@ class GarminSync:
     # ------------------------------------------------------------------ #
 
     def _sync_calendar(self):
-        # get_workout_calendar existiert möglicherweise nicht — Fallback auf connectapi
         cal_dir = self.export_dir / "kalender"
         today = date.today()
         planned: list = []
-        seen_weeks: set = set()
+        seen_months: set = set()
+        seen_ids: set = set()
 
         for delta in range(0, 29, 7):
             target = today + timedelta(days=delta)
-            iso = target.isocalendar()
-            week_key = (iso[0], iso[1])
-            if week_key in seen_weeks:
+            month_key = (target.year, target.month)
+            if month_key in seen_months:
                 continue
-            seen_weeks.add(week_key)
+            seen_months.add(month_key)
 
-            # get_workout_calendar existiert in 0.3.x nicht — direkt connectapi
             data = _safe(
                 self.api.connectapi,
-                f"/calendar-service/year/{iso[0]}/month/{target.month - 1}",
+                f"/calendar-service/year/{target.year}/month/{target.month - 1}",
                 label="calendar-service",
             )
             if data:
-                planned.extend(data if isinstance(data, list) else [data])
+                for item in (data if isinstance(data, list) else [data]):
+                    item_id = (
+                        item.get("id")
+                        or item.get("workoutScheduleId")
+                        or item.get("calendarEventId")
+                    )
+                    if item_id is None or item_id not in seen_ids:
+                        planned.append(item)
+                        if item_id is not None:
+                            seen_ids.add(item_id)
             time.sleep(1)
 
         if planned:

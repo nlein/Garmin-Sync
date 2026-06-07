@@ -1,5 +1,5 @@
 # Versionen exakt pinnen — inoffizielle API, Updates können brechen.
-# Nach erstem funktionierendem Lauf: pip freeze > requirements.txt
+# Eingefroren nach erstem erfolgreichem Sync-Lauf (2026-06-07).
 garminconnect==0.3.2
 garth==0.4.47
 curl_cffi==0.7.4
