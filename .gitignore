@@ -1,0 +1,37 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+*.spec
+!build.spec
+
+# App-Daten (lokal, nicht ins Repo)
+settings.json
+sync_state.json
+*.log
+*.log.*
+
+# Garmin-Token (liegt in ~/, aber sicherheitshalber)
+.garminconnect/
+token/
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Privat — Review-Dokumente, persönliche Anweisungen
+_privat/
+ANWEISUNGEN_*.md
+REVIEW_*.md
+
+# Windows
+Thumbs.db
+Desktop.ini

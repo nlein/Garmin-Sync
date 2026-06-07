@@ -1,0 +1,9 @@
+# Versionen exakt pinnen — inoffizielle API, Updates können brechen.
+# Nach erstem funktionierendem Lauf: pip freeze > requirements.txt
+garminconnect==0.3.2
+garth==0.4.47
+curl_cffi==0.7.4
+pystray==0.19.5
+Pillow==10.4.0
+watchdog==4.0.0
+pyinstaller==6.10.0
