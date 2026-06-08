@@ -52,6 +52,7 @@ class TrayApp:
         self._stop = threading.Event()
         self._sync_lock = threading.Lock()
         self._is_syncing = False
+        self._last_error: str = ""
         self._watchdog_observer = None
         self._mutex = None
 
@@ -115,7 +116,7 @@ class TrayApp:
             MenuItem("Ausgabeordner öffnen", self._on_open_export),
             MenuItem("Log öffnen", self._on_open_log),
             Menu.SEPARATOR,
-            MenuItem("Info", self._on_info),
+            MenuItem("Info", self._on_info, default=True),
             Menu.SEPARATOR,
             MenuItem("Beenden", self._on_quit),
         )
@@ -123,6 +124,9 @@ class TrayApp:
     def _status_text(self, _=None) -> str:
         if self._is_syncing:
             return "Sync läuft …"
+        if self._last_error:
+            msg = self._last_error
+            return f"Fehler: {msg[:55]}…" if len(msg) > 55 else f"Fehler: {msg}"
         last = self.state.last_sync
         return f"Letzter Sync: {last.strftime('%d.%m. %H:%M')}" if last else "Noch kein Sync"
 
@@ -160,6 +164,7 @@ class TrayApp:
         try:
             api = get_client()
             if not api:
+                self._last_error = "Nicht angemeldet"
                 log.error("Nicht angemeldet — bitte 'Neu anmelden' wählen.")
                 self._set_status("error")
                 return
@@ -187,9 +192,14 @@ class TrayApp:
             )
 
             self.state = SyncState(self.config.export_dir / "sync_state.json")
+            if success:
+                self._last_error = ""
+            else:
+                self._last_error = "; ".join(str(e) for e in errors) if errors else "Sync fehlgeschlagen"
             self._set_status("ok" if success else "error")
 
         except Exception as exc:
+            self._last_error = str(exc)
             log.error("Unerwarteter Sync-Fehler: %s", exc)
             self._set_status("error")
         finally:
