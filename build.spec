@@ -8,7 +8,9 @@ a = Analysis(
     ["main.py"],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[
+        (os.path.join(SPECPATH, "assets", "icon-master"), "assets/icon-master"),
+    ],
     hiddenimports=[
         "pystray._win32",
         "PIL._tkinter_finder",

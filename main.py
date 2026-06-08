@@ -84,9 +84,11 @@ elif sys.argv[1:] == ["_about"]:
     root.attributes("-topmost", True)
 
     try:
-        from PIL import ImageTk
-        from garmin_sync.icons import icon_ok
-        _photo = ImageTk.PhotoImage(icon_ok())
+        from PIL import Image, ImageTk
+        from garmin_sync.icons import _asset
+        _photo = ImageTk.PhotoImage(
+            Image.open(_asset("icon-master/garmin-sync-ok-256.png")).convert("RGBA")
+        )
         root.iconphoto(True, _photo)
     except Exception:
         pass
