@@ -58,8 +58,7 @@ Rechtsklick öffnet das Menü.
 | **Einstellungen → Ordner ändern …** | Export- und Upload-Ordner neu wählen |
 | **Ausgabeordner öffnen** | Öffnet den Export-Ordner im Explorer |
 | **Log öffnen** | Öffnet `sync.log` in Notepad |
-| **Über / Info** | Zeigt Version, Lizenz und GitHub-Link als Benachrichtigung |
-| **Projekt auf GitHub öffnen** | Öffnet github.com/nlein/Garmin-Sync im Browser |
+| **Info** | Öffnet ein Popup mit Version, Lizenz und klickbarem GitHub-Link |
 | **Beenden** | App beenden |
 
 ---

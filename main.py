@@ -71,6 +71,50 @@ elif sys.argv[1:] == ["--dialog-folders"]:
         print(json.dumps({"export": export_dir, "upload": upload_dir}))
     sys.exit(0)
 
+# Interner Subprocess-Aufruf: Info-Popup (tkinter läuft im Subprocess-Main-Thread)
+elif sys.argv[1:] == ["_about"]:
+    import tkinter as tk
+    from tkinter import font as tkfont
+    import webbrowser
+    from garmin_sync import __version__
+
+    root = tk.Tk()
+    root.title("Garmin Sync")
+    root.resizable(False, False)
+    root.attributes("-topmost", True)
+
+    try:
+        from PIL import ImageTk
+        from garmin_sync.icons import icon_ok
+        _photo = ImageTk.PhotoImage(icon_ok())
+        root.iconphoto(True, _photo)
+    except Exception:
+        pass
+
+    w, h = 370, 215
+    root.geometry(f"{w}x{h}+{(root.winfo_screenwidth() - w) // 2}+{(root.winfo_screenheight() - h) // 2}")
+
+    frame = tk.Frame(root, padx=24, pady=18)
+    frame.pack(fill="both", expand=True)
+
+    tk.Label(frame, text="Garmin Sync", font=("Segoe UI", 13, "bold")).pack()
+    tk.Label(frame, text=f"Version {__version__}  ·  Open Source  ·  MIT-Lizenz",
+             font=("Segoe UI", 9)).pack(pady=(3, 0))
+    tk.Label(frame, text="Exportiert Garmin-Daten lokal und lädt Workouts hoch.",
+             font=("Segoe UI", 9)).pack(pady=(6, 0))
+
+    _url = "https://github.com/nlein/Garmin-Sync"
+    _link = tk.Label(frame, text=_url, fg="#0563C1", cursor="hand2",
+                     font=tkfont.Font(family="Segoe UI", size=9, underline=True))
+    _link.pack(pady=(8, 0))
+    _link.bind("<Button-1>", lambda e: webbrowser.open(_url))
+
+    root.after(300, lambda: root.attributes("-topmost", False))
+    tk.Button(frame, text="Schließen", command=root.destroy, width=12).pack(pady=(14, 0))
+
+    root.mainloop()
+    sys.exit(0)
+
 elif len(sys.argv) > 1:
     from garmin_sync.cli import run_cli
     run_cli()
