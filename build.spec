@@ -2,6 +2,8 @@
 # PyInstaller-Spec — baut garmin-sync.exe (kein Konsolenfenster)
 # Ausführen: pyinstaller build.spec
 
+import os
+
 a = Analysis(
     ["main.py"],
     pathex=[],
@@ -45,5 +47,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon="assets/garmin-sync.ico",
+    icon=os.path.join(SPECPATH, "assets", "garmin-sync.ico"),
 )
