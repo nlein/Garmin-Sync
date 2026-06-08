@@ -2,7 +2,7 @@
 
 Lokales Windows-Tool, das täglich Trainings- und Gesundheitsdaten aus **Garmin Connect** exportiert und selbst erstellte Workouts dorthin hochlädt — inklusive Einplanung im Garmin-Kalender.
 
-Läuft als **System-Tray-App** im Hintergrund — grünes Icon = alles OK, rotes Icon = Fehler aufgetreten.
+Läuft als **System-Tray-App** im Hintergrund — das lila Icon mit Pulszeichen wechselt die Farbe je nach Status: grün = OK, orange = läuft, rot = Fehler, grau = bereit.
 
 > **Inoffizielle API** — dieses Tool verwendet die inoffizielle Garmin-Connect-API über [python-garminconnect](https://github.com/cyberjunky/python-garminconnect). Es besteht keine Verbindung zu Garmin Ltd. Nutzung auf eigene Gefahr.
 
@@ -58,6 +58,8 @@ Rechtsklick öffnet das Menü.
 | **Einstellungen → Ordner ändern …** | Export- und Upload-Ordner neu wählen |
 | **Ausgabeordner öffnen** | Öffnet den Export-Ordner im Explorer |
 | **Log öffnen** | Öffnet `sync.log` in Notepad |
+| **Über / Info** | Zeigt Version, Lizenz und GitHub-Link als Benachrichtigung |
+| **Projekt auf GitHub öffnen** | Öffnet github.com/nlein/Garmin-Sync im Browser |
 | **Beenden** | App beenden |
 
 ---

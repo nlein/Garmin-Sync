@@ -32,6 +32,8 @@ token/
 _privat/
 ANWEISUNGEN_*.md
 REVIEW_*.md
+CLAUDE.md
+_COCKPIT_*.md
 
 # Windows
 Thumbs.db

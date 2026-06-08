@@ -45,5 +45,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=None,            # Optional: Pfad zu einer .ico-Datei eintragen
+    icon="assets/garmin-sync.ico",
 )

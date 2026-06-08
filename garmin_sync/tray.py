@@ -15,6 +15,7 @@ import logging
 import subprocess
 import sys
 import threading
+import webbrowser
 from datetime import datetime, time as dt_time
 from pathlib import Path
 from typing import Optional
@@ -114,6 +115,9 @@ class TrayApp:
             MenuItem("Einstellungen → Ordner ändern …", self._on_folders),
             MenuItem("Ausgabeordner öffnen", self._on_open_export),
             MenuItem("Log öffnen", self._on_open_log),
+            Menu.SEPARATOR,
+            MenuItem("Über / Info", self._on_about),
+            MenuItem("Projekt auf GitHub öffnen", self._on_github),
             Menu.SEPARATOR,
             MenuItem("Beenden", self._on_quit),
         )
@@ -305,6 +309,19 @@ class TrayApp:
             subprocess.Popen(["notepad", str(log_path)])
         else:
             icon.notify("Noch keine Log-Datei vorhanden.", "Garmin Sync")
+
+    def _on_about(self, icon, item):
+        from garmin_sync import __version__
+        icon.notify(
+            f"Version {__version__}  •  Open Source (MIT)\n"
+            "Exportiert Garmin-Connect-Daten lokal und lädt\n"
+            "Workout-JSONs nach Garmin Connect hoch.\n"
+            "github.com/nlein/Garmin-Sync",
+            "Garmin Sync",
+        )
+
+    def _on_github(self, icon, item):
+        webbrowser.open("https://github.com/nlein/Garmin-Sync")
 
     def _on_quit(self, icon, item):
         self._stop.set()
