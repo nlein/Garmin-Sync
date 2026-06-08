@@ -10,6 +10,7 @@ a = Analysis(
     binaries=[],
     datas=[
         (os.path.join(SPECPATH, "assets", "icon-master"), "assets/icon-master"),
+        (os.path.join(SPECPATH, "assets", "garmin-sync.ico"), "assets"),
     ],
     hiddenimports=[
         "pystray._win32",

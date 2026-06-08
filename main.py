@@ -86,8 +86,10 @@ elif sys.argv[1:] == ["_about"]:
     try:
         from PIL import Image, ImageTk
         from garmin_sync.icons import _asset
+        _ico = str(_asset("garmin-sync.ico"))
+        root.iconbitmap(_ico)
         _photo = ImageTk.PhotoImage(
-            Image.open(_asset("icon-master/garmin-sync-ok-256.png")).convert("RGBA")
+            Image.open(_asset("icon-master/garmin-sync-app-256.png")).convert("RGBA")
         )
         root.iconphoto(True, _photo)
     except Exception:
